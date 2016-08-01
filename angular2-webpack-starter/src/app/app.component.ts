@@ -5,6 +5,11 @@ import { Component, ViewEncapsulation } from '@angular/core';
 
 import { AppState } from './app.service';
 
+import { RouterLink } from '@angular/router';
+
+import { ProductListComponent } from './products/product-list.component';
+import { ProductService } from './products/product.service';
+
 /*
  * App Component
  * Top Level Component
@@ -17,27 +22,10 @@ import { AppState } from './app.service';
   ],
   template: `
     <nav>
+      
       <span>
-        <a [routerLink]=" ['./'] ">
-          Index
-        </a>
-      </span>
-      |
-      <span>
-        <a [routerLink]=" ['./home'] ">
-          Home
-        </a>
-      </span>
-      |
-      <span>
-        <a [routerLink]=" ['./detail'] ">
-          Detail
-        </a>
-      </span>
-      |
-      <span>
-        <a [routerLink]=" ['./about'] ">
-          About
+        <a [routerLink]=" ['./products'] ">
+          Products
         </a>
       </span>
     </nav>
@@ -56,8 +44,10 @@ import { AppState } from './app.service';
         </a>
       </div>
     </footer>
-  `
+  `,
+  providers: [ProductService]
 })
+
 export class App {
   angularclassLogo = 'assets/img/angularclass-avatar.png';
   name = 'Angular 2 Webpack Starter';
