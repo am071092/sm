@@ -1,6 +1,7 @@
 /*
  * Angular 2 decorators and services
  */
+import './app.loader.ts';
 import { Component, ViewEncapsulation } from '@angular/core';
 
 import { AppState } from './app.service';
@@ -21,29 +22,9 @@ import { ProductService } from './products/product.service';
     './app.style.css'
   ],
   template: `
-    <nav>
-      
-      <span>
-        <a [routerLink]=" ['./products'] ">
-          Products
-        </a>
-      </span>
-    </nav>
-
     <main>
       <router-outlet></router-outlet>
     </main>
-
-    <pre class="app-state">this.appState.state = {{ appState.state | json }}</pre>
-
-    <footer>
-      <span>WebPack Angular 2 Starter by <a [href]="url">@AngularClass</a></span>
-      <div>
-        <a [href]="url">
-          <img [src]="angularclassLogo" width="25%">
-        </a>
-      </div>
-    </footer>
   `,
   providers: [ProductService]
 })

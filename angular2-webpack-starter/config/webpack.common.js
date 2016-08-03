@@ -13,6 +13,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ForkCheckerPlugin = require('awesome-typescript-loader').ForkCheckerPlugin;
 const HtmlElementsPlugin = require('./html-elements-plugin');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 /*
  * Webpack Constants
@@ -72,7 +73,7 @@ module.exports = {
      *
      * See: http://webpack.github.io/docs/configuration.html#resolve-extensions
      */
-    extensions: ['', '.ts', '.js', '.json'],
+    extensions: ['', '.ts', '.js', '.css', '.scss', '.json'],
 
     // Make sure root is src
     root: helpers.root('src'),
@@ -164,6 +165,24 @@ module.exports = {
         loaders: ['to-string-loader', 'css-loader']
       },
 
+      {
+        test: /\.scss$/,
+        loaders: ['raw-loader', 'sass-loader']
+      },
+
+      {
+        test: /initial\.scss$/,
+        loader: ExtractTextPlugin.extract('style-loader', 'css-loader!sass-loader')
+      },
+
+      {
+        test: /\.woff(2)?(\?v=.+)?$/, loader: 'url-loader?limit=10000&mimetype=application/font-woff'
+      },
+
+       {
+        test: /\.(ttf|eot|svg)(\?v=.+)?$/, loader: 'file-loader'
+      },
+
       /* Raw loader support for *.html
        * Returns file content as string
        *
@@ -185,7 +204,9 @@ module.exports = {
    * See: http://webpack.github.io/docs/configuration.html#plugins
    */
   plugins: [
-
+    new ExtractTextPlugin('initial.css',  {
+      allChunks: true
+    }),
     /*
      * Plugin: ForkCheckerPlugin
      * Description: Do type checking in a separate process, so webpack don't need to wait.

@@ -52,10 +52,15 @@
 
 import { provideRouter, RouterConfig } from '@angular/router';
 import { ProductListComponent } from './products/product-list.component';
+import {PagesRoutes} from "./pages/pages.routes";
 
 export const routes: RouterConfig  = [
+  ...PagesRoutes,
   { path: 'products', component: ProductListComponent},
-  { path: '', component: ProductListComponent}
+  // { path: '', component: ProductListComponent},
+  { path: '**',
+    redirectTo: '/pages'
+  }
 ];
 
 export const appRouterProviders = [
